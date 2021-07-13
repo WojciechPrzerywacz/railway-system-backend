@@ -2,11 +2,13 @@ package com.example.demo.wagon;
 
 import com.example.demo.locomotive.Locomotive;
 import com.example.demo.trains.Train;
+import com.example.demo.wagon_types.WagonTypes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "wagon")
@@ -28,5 +30,10 @@ public class Wagon {
 
     @Column(name = "load_weight")
     private Integer load_weight;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private WagonTypes wagontype;
+
+    //@JoinColumn(name = "wagon_type")
 
 }
