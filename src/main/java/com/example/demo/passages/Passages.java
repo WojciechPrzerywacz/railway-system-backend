@@ -2,6 +2,7 @@ package com.example.demo.passages;
 
 import com.example.demo.trains.Train;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 public class Passages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

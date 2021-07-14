@@ -4,6 +4,7 @@ import com.example.demo.locomotive.Locomotive;
 import com.example.demo.trains.Train;
 import com.example.demo.wagon_types.WagonTypes;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Wagon {
 
     @Id
@@ -31,8 +33,8 @@ public class Wagon {
     @Column(name = "load_weight")
     private Integer load_weight;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private WagonTypes wagontype;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private WagonTypes wagon_type;
 
     //@JoinColumn(name = "wagon_type")
 

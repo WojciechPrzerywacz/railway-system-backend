@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WagonCreateRequest {
-    private Long wagonId;
+    private Long id;
     private Integer load;
 }

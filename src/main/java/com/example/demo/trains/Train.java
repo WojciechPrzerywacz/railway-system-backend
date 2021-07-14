@@ -2,20 +2,19 @@ package com.example.demo.trains;
 
 import com.example.demo.locomotive.Locomotive;
 import com.example.demo.wagon.Wagon;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "Train")
+@Entity
+@Table(name = "train")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Train {
 
     @Id

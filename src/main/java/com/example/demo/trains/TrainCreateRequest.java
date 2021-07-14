@@ -1,6 +1,5 @@
-package com.example.demo.passages.dto;
+package com.example.demo.trains;
 
-import com.example.demo.wagon.Wagon;
 import com.example.demo.wagon.dto.WagonCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +8,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PassageCreateRequest {
-    private String startingPlace;
-    private String endingPlace;
+@NoArgsConstructor
+public class TrainCreateRequest {
+
     private Long locomotiveId;
+    private List<WagonCreateRequest> wagonsList;
 }

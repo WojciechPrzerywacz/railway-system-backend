@@ -1,5 +1,6 @@
 package com.example.demo.trains;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +21,10 @@ public class TrainApi {
     }
 
     @GetMapping("/{index}")
-    public Optional<Train> getById(@PathVariable Long index){
+    public Train getById(@PathVariable Long index){
         return trains.findById(index);
     }
 
     @PostMapping
-    public Train addTrain(@RequestBody Train train){ return trains.save(train);}
+    public Train addTrain(@RequestBody TrainCreateRequest trainCreateRequest){ return trains.create(trainCreateRequest);}
 }
