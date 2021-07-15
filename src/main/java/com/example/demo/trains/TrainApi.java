@@ -1,7 +1,10 @@
 package com.example.demo.trains;
 
+import com.example.demo.passages.Passages;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,15 +19,14 @@ public class TrainApi {
     private TrainManager trains;
 
     @GetMapping
-    public List<Train> getAll() {
-        return trains.findAll();
+    public ResponseEntity<List<Train>> getAll(){
+        return new ResponseEntity<List<Train>>(trains.findAll(), HttpStatus.OK);
     }
-
     @GetMapping("/{index}")
-    public Train getById(@PathVariable Long index){
-        return trains.findById(index);
+    public ResponseEntity<Train> getById(@PathVariable Long index){
+        return new ResponseEntity<Train>(trains.findById(index), HttpStatus.OK);
     }
 
     @PostMapping
-    public Train addTrain(@RequestBody TrainCreateRequest trainCreateRequest){ return trains.create(trainCreateRequest);}
+    public ResponseEntity<Train> addTrain(@RequestBody TrainCreateRequest trainCreateRequest){ return new ResponseEntity<Train>(trains.create(trainCreateRequest), HttpStatus.OK);}
 }

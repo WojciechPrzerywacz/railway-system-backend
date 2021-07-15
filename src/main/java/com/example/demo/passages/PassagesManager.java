@@ -31,12 +31,17 @@ public class PassagesManager {
                 .train(trainManager.findById(request.getLocomotiveId()))
                 .build();
 
-
         return passagesRepository.save(p);
     }
 
-    public Optional<Passages> findById(Long id) {
-        return passagesRepository.findById(id);
+    public Passages findById(Long id) {
+        return passagesRepository.findById(id).orElseThrow(() -> new RuntimeException("Brak przejazdu o podanym ID"));
+    }
+
+    public Boolean deleteById(Long id) {
+        Passages p = findById(id);
+        passagesRepository.delete(p);
+        return true;
     }
 
 }

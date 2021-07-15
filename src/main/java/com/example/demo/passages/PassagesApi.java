@@ -5,6 +5,8 @@ import com.example.demo.trains.Train;
 import com.example.demo.trains.TrainCreateRequest;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,15 +21,20 @@ public class PassagesApi {
     private PassagesManager passages;
 
     @GetMapping
-    public List<Passages> getAll() {
-        return passages.findAll();
+    public ResponseEntity<List<Passages>> getAll(){
+        return new ResponseEntity<List<Passages>>(passages.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{index}")
-    public Optional<Passages> getById(@PathVariable Long index){
+    public Passages getById(@PathVariable Long index){
         return passages.findById(index);
     }
 
     @PostMapping
     public Passages addPassage(@RequestBody PassageCreateRequest passageCreateRequest){ return passages.create(passageCreateRequest);}
+
+    @DeleteMapping("/{index}")
+    public void deletePassage(@RequestParam Long index) {
+        passages.deleteById(index);
+    }
 }
