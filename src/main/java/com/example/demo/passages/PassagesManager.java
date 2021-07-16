@@ -1,14 +1,21 @@
 package com.example.demo.passages;
 
+import com.example.demo.locomotive.Locomotive;
+import com.example.demo.locomotive.LocomotiveManager;
 import com.example.demo.passages.Passages;
 import com.example.demo.passages.PassagesRepository;
 import com.example.demo.passages.dto.PassageCreateRequest;
 import com.example.demo.trains.Train;
 import com.example.demo.trains.TrainManager;
 import com.example.demo.trains.TrainRepository;
+import com.example.demo.wagon.Wagon;
+import com.example.demo.wagon.dto.WagonCreateRequest;
+import com.example.demo.wagon_types.WagonTypes;
+import com.example.demo.wagon_types.WagonTypesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +25,10 @@ public class PassagesManager {
     private PassagesRepository passagesRepository;
     @Autowired
     private TrainManager trainManager;
+    @Autowired
+    private LocomotiveManager locomotiveManager;
+    @Autowired
+    private WagonTypesManager wagonTypesManager;
 
     public List<Passages> findAll() {
         return passagesRepository.findAll();
@@ -25,10 +36,30 @@ public class PassagesManager {
 
     public Passages create(PassageCreateRequest request) {
 
+        List<Wagon> wagons = new ArrayList<>();
+
+        for(WagonCreateRequest w : request.getWagonsList()){
+            WagonTypes type = wagonTypesManager.findById(w.getId());
+
+            Wagon wagon = Wagon.builder()
+                    .type(type.getType())
+                    .max_load(type.getMax_load())
+                    .load_weight(w.getLoad())
+                    .build();
+
+            wagons.add(wagon);
+        }
+
+        Locomotive baseLoco = locomotiveManager.findById(request.getLocomotiveId());
+
+        Train t = Train.builder().locomotive(baseLoco)
+                .wagons(wagons)
+                .build();
+
         Passages p = Passages.builder()
                 .start(request.getStartingPlace())
                 .destination(request.getEndingPlace())
-                .train(trainManager.findById(request.getLocomotiveId()))
+                .train(t)
                 .build();
 
         return passagesRepository.save(p);
@@ -39,8 +70,8 @@ public class PassagesManager {
     }
 
     public Boolean deleteById(Long id) {
-        Passages p = findById(id);
-        passagesRepository.delete(p);
+        //Passages p = findById(id);
+        passagesRepository.delete(findById(id));
         return true;
     }
 

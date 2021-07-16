@@ -15,4 +15,5 @@ public class PassageCreateRequest {
     private String startingPlace;
     private String endingPlace;
     private Long locomotiveId;
+    private List<WagonCreateRequest> wagonsList;
 }

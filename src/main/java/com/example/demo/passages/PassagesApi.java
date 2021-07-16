@@ -34,7 +34,7 @@ public class PassagesApi {
     public Passages addPassage(@RequestBody PassageCreateRequest passageCreateRequest){ return passages.create(passageCreateRequest);}
 
     @DeleteMapping("/{index}")
-    public void deletePassage(@RequestParam Long index) {
+    public void deletePassage(@PathVariable Long index) {
         passages.deleteById(index);
     }
 }
