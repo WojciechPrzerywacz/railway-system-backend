@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassageCreateRequest {
+    private String passageName;
     private String startingPlace;
     private String endingPlace;
     private Long locomotiveId;

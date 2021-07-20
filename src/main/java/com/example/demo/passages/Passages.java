@@ -19,6 +19,9 @@ public class Passages {
     @Column(name = "id")
     private Long id;
 
+    @Column(unique=true)
+    private String passageName;
+
     @Column(name = "start")
     private String start;
 

@@ -1,5 +1,7 @@
 package com.example.demo.passages;
 
+import com.example.demo.ResponseException;
+import com.example.demo.RestResponseException;
 import com.example.demo.passages.dto.PassageCreateRequest;
 import com.example.demo.trains.Train;
 import com.example.demo.trains.TrainCreateRequest;
@@ -14,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/passages")
-@CrossOrigin
+@CrossOrigin("*")
 @Builder
 public class PassagesApi {
     @Autowired
@@ -26,15 +28,17 @@ public class PassagesApi {
     }
 
     @GetMapping("/{index}")
-    public Passages getById(@PathVariable Long index){
-        return passages.findById(index);
+    public ResponseEntity<Passages> getById(@PathVariable Long index) throws ResponseException {
+        return new ResponseEntity<Passages>(passages.findById(index), HttpStatus.OK);
     }
 
     @PostMapping
-    public Passages addPassage(@RequestBody PassageCreateRequest passageCreateRequest){ return passages.create(passageCreateRequest);}
+    public ResponseEntity<Passages> addPassage(@RequestBody PassageCreateRequest passageCreateRequest) throws ResponseException {
+        return new ResponseEntity<Passages>(passages.create(passageCreateRequest), HttpStatus.OK);
+    }
 
     @DeleteMapping("/{index}")
-    public void deletePassage(@PathVariable Long index) {
+    public void deletePassage(@PathVariable Long index) throws  ResponseException {
         passages.deleteById(index);
     }
 }

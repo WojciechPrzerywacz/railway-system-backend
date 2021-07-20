@@ -15,18 +15,4 @@ import java.util.Optional;
 @CrossOrigin
 public class TrainApi {
 
-    @Autowired
-    private TrainManager trains;
-
-    @GetMapping
-    public ResponseEntity<List<Train>> getAll(){
-        return new ResponseEntity<List<Train>>(trains.findAll(), HttpStatus.OK);
-    }
-    @GetMapping("/{index}")
-    public ResponseEntity<Train> getById(@PathVariable Long index){
-        return new ResponseEntity<Train>(trains.findById(index), HttpStatus.OK);
-    }
-
-    @PostMapping
-    public ResponseEntity<Train> addTrain(@RequestBody TrainCreateRequest trainCreateRequest){ return new ResponseEntity<Train>(trains.create(trainCreateRequest), HttpStatus.OK);}
 }
