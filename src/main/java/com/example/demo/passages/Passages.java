@@ -19,7 +19,7 @@ public class Passages {
     @Column(name = "id")
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique=true, name="passage_name")
     private String passageName;
 
     @Column(name = "start")

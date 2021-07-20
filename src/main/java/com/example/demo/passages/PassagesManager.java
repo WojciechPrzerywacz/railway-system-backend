@@ -14,6 +14,9 @@ import com.example.demo.wagon.Wagon;
 import com.example.demo.wagon.dto.WagonCreateRequest;
 import com.example.demo.wagon_types.WagonTypes;
 import com.example.demo.wagon_types.WagonTypesManager;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,9 +40,13 @@ public class PassagesManager {
         return passagesRepository.findAll();
     }
 
-    public Passages create(PassageCreateRequest request) {
+    public Passages create(PassageCreateRequest request) throws  ResponseException {
 
         String name = request.getPassageName();
+
+        if(!passagesRepository.findByPassageName(name).isEmpty()){
+            throw new ResponseException(HttpStatus.BAD_REQUEST, "Passage with this name already exists");
+        }
 
         List<Wagon> wagons = new ArrayList<>();
 
